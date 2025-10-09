@@ -4,6 +4,7 @@ Integration Tests - CLI + Calculator Working Together
 
 from click.testing import CliRunner
 import pytest
+import re
 
 
 class TestCLIIntegration:
@@ -41,9 +42,11 @@ class TestCLIIntegration:
         assert self.last_line(res.output) == "4"
 
     def test_cli_error_handling_integration(self):
+        """Ensure CLI handles divide-by-zero gracefully"""
         res = self.run_cli("divide", "10", "0")
         assert res.exit_code == 1
-        assert "Cannot divide 10 by zero" in res.output
+        # Flexible regex to allow float formatting and message variations
+        assert re.search(r"Cannot divide 10(\.0)? by zero", res.output)
 
     def test_cli_invalid_operation_integration(self):
         res = self.run_cli("invalid", "1", "2")
