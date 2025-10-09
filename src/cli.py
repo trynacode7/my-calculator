@@ -1,6 +1,6 @@
 """
 Command Line Interface for Calculator
-Example: python src/cli.py add 5 3
+Example: python -m src.cli add 5 3
 """
 
 import sys
@@ -24,6 +24,10 @@ def calculate(operation, num1, num2=None):
             result = multiply(num1, num2)
         elif operation == "divide":
             result = divide(num1, num2)
+        elif operation == "power":
+            result = power(num1, num2)
+        elif operation == "square_root" or operation == "sqrt":
+            result = square_root(num1)
         else:
             click.echo(f"Unknown operation: {operation}")
             sys.exit(1)
