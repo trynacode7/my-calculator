@@ -1,10 +1,10 @@
-"""
-Calculator Module - Basic arithmetic operations
-Students will extend this with more functions
-"""
+# small re-export so tests importing "calculator" at repo root work
+from src.calculator import add, subtract, multiply, divide, power, square_root
+
+__all__ = ["add", "subtract", "multiply", "divide", "power", "square_root"]
 
 def add(a, b):
-    """Add two numbers together"""
+    """Add two numbers"""
     return a + b
 
 def subtract(a, b):
@@ -12,30 +12,27 @@ def subtract(a, b):
     return a - b
 
 def multiply(a, b):
-    """Multiply two numbers with input validation and logging."""
+    """Multiply two numbers with simple input validation"""
     if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
         raise TypeError("Both arguments must be numbers")
-    
-    print(f"Multiplying {a} × {b}")  # Added logging
-    result = a * b
-    print(f"Result: {result}")
-    return result
+    return a * b
 
 def divide(a, b):
-    """Divide a by b with enhanced error handling."""
+    """Divide a by b with zero check"""
     if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
         raise TypeError("Division requires numeric inputs")
     if b == 0:
-        raise ValueError(f"Cannot divide {a} by zero - division by zero is undefined")
-    
-    print(f"Dividing {a} ÷ {b}")  # Added logging
-    result = a / b
-    print(f"Result: {result}")
-    return result
+        raise ValueError("Cannot divide by zero")
+    return a / b
 
-# TODO: Students will add multiply, divide, power, sqrt functions
+def power(a, b):
+    """Raise a to the power of b"""
+    return a ** b
 
-if __name__ == "__main__":
-    print("🧮 Calculator Module")
-    print(f"2 + 3 = {add(2, 3)}")
-    print(f"5 - 2 = {subtract(5, 2)}")
+def square_root(a):
+    """Calculate square root of a"""
+    if not isinstance(a, (int, float)):
+        raise TypeError("square_root requires a numeric input")
+    if a < 0:
+        raise ValueError("Cannot calculate square root of negative number")
+    return a ** 0.5
